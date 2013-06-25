@@ -1,0 +1,41 @@
+h1, h2, h3 {
+    margin-left: 2em;
+    padding: 0.2em 1em 0.2em 0.5em;
+}
+
+h1 {
+    font-size: 150%;
+}
+
+h2 {
+    margin-right: 1.5em;
+    margin-left: 1.5em;
+    font-size: 120%;
+    color: #ffffff;
+    background: #000000;
+    padding: 0.3em 1em 0.3em 1em;
+}
+
+div.h3 {
+    margin: 1em 2% 1em 2em;
+    padding: 0% 0% 0.5em 0%;
+    border-style: dotted;
+    border-width: 1px 1px 1px 1px;
+}
+
+h3 {
+    margin: 0em 0em 1em 0em;
+    background: #eeeeee;
+    border-width: 0px 0px 0px 1em;
+    border-style: solid;
+    border-color: #aaaaaa;
+}
+
+p {
+    margin-left: 3em;
+}
+
+pre {
+    margin-left: 5em;
+}
+
