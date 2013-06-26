@@ -33,7 +33,7 @@ do ($=jQuery) ->
         wordPat = new RegExp(word, "i")
         @items.filter((index) -> $(@).text().match(wordPat))
 
-    assignSearchForm: (KeywordFieldId, MessageAreaId, MatchingNumberAreaId, TotalNumberAreaId, ExecuteButtonId, ClearButtonId, totalNumber) ->
+    assignSearchForm: (KeywordFieldId, MessageAreaId, MatchingNumberAreaId, TotalNumberAreaId, ExecuteButtonId, ClearButtonId) ->
       form =
         message: $(MessageAreaId)
         keyword: $(KeywordFieldId)
@@ -47,9 +47,9 @@ do ($=jQuery) ->
         clearMessage: ->
           @keyword.focus()
           @keyword.select()
-          @setMessage("", totalNumber)
+          @setMessage("", @Target.totalNumber)
 
-      form.totalNumberArea.text(totalNumber)
+      form.totalNumberArea.text(@Target.totalNumber)
       form.executeButton.click => @executeSearch()
       form.clearButton.click => @clearSearch()
       form
@@ -66,3 +66,8 @@ do ($=jQuery) ->
       @Target.items.show()
       @Form.clearMessage()
       false
+
+    setup: (targetItems, KeywordFieldId, MessageAreaId, MatchingNumberAreaId, TotalNumberAreaId, ExecuteButtonId, ClearButtonId) ->
+      @Target = @assignSearchTarget(targetItems)
+      @Form = @assignSearchForm(KeywordFieldId, MessageAreaId, MatchingNumberAreaId, TotalNumberAreaId, ExecuteButtonId, ClearButtonId)
+      @Form.clearMessage()
