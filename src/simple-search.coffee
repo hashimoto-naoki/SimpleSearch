@@ -36,7 +36,7 @@ do ($=jQuery) ->
       totalNumber: $(targetItems).size()
       matchingItems: (word) ->
         wordPat = new RegExp(word, "i")
-        @items.filter((index) -> $(@).text().match(wordPat))
+        @items.filter((index) -> $(@).matching(wordPat))
 
     assignSearchForm: (KeywordFieldId, MessageAreaId, MatchingNumberAreaId, TotalNumberAreaId, ExecuteButtonId, ClearButtonId) ->
       form =
