@@ -68,8 +68,7 @@ do ($=jQuery) ->
       matchingItems.each (index) ->
         heading = $(@).children().first()
         unless heading.matching(wordPat)
-          $(@).children($.SimpleSearch.Target).filter((index) -> not $(@).matching(wordPat)).hide()
-          heading.show()
+          $(@).children($.SimpleSearch.Target.subItemsClass).filter((index) -> not $(@).matching(wordPat)).hide()
       @Form.setMessage(word, matchingItems.length)
       false
 
