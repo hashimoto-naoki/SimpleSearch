@@ -70,7 +70,7 @@ do ($=jQuery) ->
         unless heading.matching(wordPat)
           $(@).children($.SimpleSearch.Target).filter((index) -> not $(@).matching(wordPat)).hide()
           heading.show()
-      @Form.setMessage(word, matchingItems.size())
+      @Form.setMessage(word, matchingItems.length)
       false
 
     clearSearch: ->
