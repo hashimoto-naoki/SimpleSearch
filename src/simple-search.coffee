@@ -22,12 +22,17 @@ do ($=jQuery) ->
   escapeHtml = (chars) ->
     chars.replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;").replace(/>/g,"&gt;") #"
 
+  $.fn.matching = (wordPat) ->
+    @text().match(wordPat)
+
   $.SimpleSearch = 
     Target: null
     Form: null
     
-    assignSearchTarget: (targetItems) ->
+    assignSearchTarget: (targetItems, targetSubItems) ->
       items: $(targetItems)
+      subItems: $(targetSubItems)
+      subItemsClass: targetSubItems
       totalNumber: $(targetItems).size()
       matchingItems: (word) ->
         wordPat = new RegExp(word, "i")
@@ -47,7 +52,7 @@ do ($=jQuery) ->
         clearMessage: ->
           @keyword.focus()
           @keyword.select()
-          @setMessage("", @Target.totalNumber)
+          @setMessage("", $.SimpleSearch.Target.totalNumber)
 
       form.totalNumberArea.text(@Target.totalNumber)
       form.executeButton.click => @executeSearch()
@@ -59,15 +64,22 @@ do ($=jQuery) ->
       word = escapeHtml(@Form.keyword.val())
       matchingItems = @Target.matchingItems(word)
       matchingItems.show()
+      wordPat = new RegExp(word, "i")
+      matchingItems.each (index) ->
+        heading = $(@).children().first()
+        unless heading.matching(wordPat)
+          $(@).children($.SimpleSearch.Target).filter((index) -> not $(@).matching(wordPat)).hide()
+          heading.show()
       @Form.setMessage(word, matchingItems.size())
       false
 
     clearSearch: ->
       @Target.items.show()
+      @Target.subItems.show()
       @Form.clearMessage()
       false
 
-    setup: (targetItems, KeywordFieldId, MessageAreaId, MatchingNumberAreaId, TotalNumberAreaId, ExecuteButtonId, ClearButtonId) ->
-      @Target = @assignSearchTarget(targetItems)
+    setup: (targetItems, targetSubItems, KeywordFieldId, MessageAreaId, MatchingNumberAreaId, TotalNumberAreaId, ExecuteButtonId, ClearButtonId) ->
+      @Target = @assignSearchTarget(targetItems, targetSubItems)
       @Form = @assignSearchForm(KeywordFieldId, MessageAreaId, MatchingNumberAreaId, TotalNumberAreaId, ExecuteButtonId, ClearButtonId)
       @Form.clearMessage()
